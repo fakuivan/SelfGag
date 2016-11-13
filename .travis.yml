@@ -23,6 +23,7 @@ install:
     - tar -xzf $(cat sourcemod-latest-linux)
 before_script:
     - cp -r scripting addons/sourcemod
+    - cd addons/sourcemod/scripting/
     - chmod +x spcomp
     - mkdir plugins
 script: ./compile.sh selfgag.sp
