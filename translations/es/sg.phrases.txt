@@ -1,0 +1,43 @@
+﻿"Phrases"
+{
+	"sg_showing_gagged"
+	{
+		"es"		"Mostrando jugadores gageados"
+	}
+	"sg_ml_you_gagged"
+	{
+		"es"		"Gageaste a %t"
+	}
+	"sg_you_gagged"
+	{
+		"es"		"Gageaste a %s"
+	}
+	"sug_ml_you_ungagged"
+	{
+		"es"		"Desgageaste a %t"
+	}
+	"sug_you_ungagged"
+	{
+		"es"		"Desgageaste a %s"
+	}
+	"sg_menu_title"
+	{
+		"es"		"Gagear a"
+	}
+	"sg_menu_cant_target"
+	{
+		"es"		"Imposible encontrar jugador"
+	}
+	"sg_menu_you_gagged"
+	{
+		"es"		"Gageaste a %N"
+	}
+	"sug_menu_title"
+	{
+		"es"		"Desgagear a"
+	}
+	"sug_menu_ungagged"
+	{
+		"es"		"Desgageaste a %N"
+	}
+}

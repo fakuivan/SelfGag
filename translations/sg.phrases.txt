@@ -1,0 +1,43 @@
+"Phrases"
+{
+	"sg_showing_gagged"
+	{
+		"en"		"Showing gagged players"
+	}
+	"sg_ml_you_gagged"
+	{
+		"en"		"You gagged %t"
+	}
+	"sg_you_gagged"
+	{
+		"en"		"You gagged %s"
+	}
+	"sug_ml_you_ungagged"
+	{
+		"en"		"You ungagged %t"
+	}
+	"sug_you_ungagged"
+	{
+		"en"		"You ungagged %s"
+	}
+	"sg_menu_title"
+	{
+		"en"		"Choose a player to gag"
+	}
+	"sg_menu_cant_target"
+	{
+		"en"		"Can't target player"
+	}
+	"sg_menu_you_gagged"
+	{
+		"en"		"You gagged %N"
+	}
+	"sug_menu_title"
+	{
+		"en"		"Choose a player to ungag"
+	}
+	"sug_menu_ungagged"
+	{
+		"en"		"You ungagged %N"
+	}
+}
