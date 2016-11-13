@@ -1,4 +1,4 @@
-# SelfGag
+# SelfGag [![Build Status](https://travis-ci.org/fakuivan/SelfGag.svg?branch=master)](https://travis-ci.org/fakuivan/SelfGag)
 A plugin that that allows a player to gag other players, but just for himself. 
 
 ## Usage
