@@ -87,6 +87,7 @@ public Action Callback_GetGagged(int i_client, int i_args)
 			}
 		}
 	}
+	return Plugin_Handled;
 }
 
 public Action Callback_Gag(int i_client, int i_args)
