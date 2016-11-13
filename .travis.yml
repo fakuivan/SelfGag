@@ -1,0 +1,32 @@
+# Use the new container-based infrastructure
+sudo: false
+
+# Install some apt packages needed for spcomp
+addons:
+    apt_packages:
+        - lib32stdc++6
+
+# Set the build environment
+env:
+    - SMVERSION=1.8 # Stable
+    - SMVERSION=1.9 # Unstable
+
+# Allow the experimental branch to fail
+matrix:
+  fast_finish: true
+  allow_failures:
+    - env: SMVERSION=1.9
+
+# And compile!
+install:
+    - wget --input-file=http://sourcemod.net/smdrop/$SMVERSION/sourcemod-latest-linux
+    - tar -xzf $(cat sourcemod-latest-linux)
+before_script:
+    - cp -r scripting addons/sourcemod
+    - chmod +x spcomp
+    - mkdir plugins
+script: ./compile.sh selfgag.sp
+
+# Notifications
+notifications:
+    email: false
