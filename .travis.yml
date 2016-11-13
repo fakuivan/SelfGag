@@ -37,7 +37,7 @@ deploy:
     skip_cleanup: true
     on:
         repo: fakuivan/SelfGag
-    tags: true
+        tags: true
 
 # Notifications
 notifications:
