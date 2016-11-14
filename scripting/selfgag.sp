@@ -33,6 +33,8 @@
 
 #include <sourcemod>
 #include <adminmenu>
+#define REQUIRE_PLUGIN
+#include "scp.inc"
 #pragma semicolon 1
 
 #define PLUGIN_VERSION	"0.7"
@@ -52,7 +54,6 @@ public Plugin myinfo =
 public void OnPluginStart()
 {
 	CreateConVar("sm_selfgag_version", PLUGIN_VERSION, "Version of SelfGag", FCVAR_SPONLY|FCVAR_REPLICATED|FCVAR_NOTIFY);
-	HookUserMessage(GetUserMessageId("SayText2"), Callback_OnSayText2, true);
 	RegConsoleCmd("sm_sg", Callback_Gag, "Self gags a player");
 	RegConsoleCmd("sm_selfgag", Callback_Gag, "Self gags a player");
 	RegConsoleCmd("sm_sug", Callback_UnGag, "Self ungags a player");
@@ -61,6 +62,7 @@ public void OnPluginStart()
 	RegConsoleCmd("sm_checkgagged", Callback_GetGagged, "Shows a list of self gagged players");
 	LoadTranslations("common.phrases");
 	LoadTranslations("sg.phrases");
+	
 }
 
 bool gb_gagged[MAXPLAYERS][MAXPLAYERS];
@@ -79,7 +81,7 @@ public Action Callback_GetGagged(int i_client, int i_args)
 	ReplyToCommand(i_client, "[SM] %t:", "sg_showing_gagged");
 	for (int i = 0; i < MaxClients; i++)
 	{
-		if (gb_gagged[i_client][i])
+		if (ShouldRecipientReadFromSender(i_client, i))
 		{
 			if (IsClientInGame(i))
 			{
@@ -121,7 +123,7 @@ public Action Callback_Gag(int i_client, int i_args)
 
 	for (int i = 0; i < i_target_count; i++)
 	{
-		gb_gagged[i_client][i_target_list[i]] = true;
+		GagSenderForRecipient(i_client, i_target_list[i]);
 	}
 
 	if (b_tn_is_ml)
@@ -165,7 +167,7 @@ public Action Callback_UnGag(int i_client, int i_args)
 
 	for (int i = 0; i < i_target_count; i++)
 	{
-		gb_gagged[i_client][i_target_list[i]] = false;
+		UnGagSenderForRecipient(i_client, i_target_list[i]);
 	}
 
 	if (b_tn_is_ml)
@@ -214,7 +216,7 @@ public MenuHandler_GagMenu(Handle h_menu, MenuAction i_action, int i_param1, int
 			else
 			{
 				PrintToChat(i_param1, "[SM] %t", "sg_menu_you_gagged", i_target);
-				gb_gagged[i_param1][i_target] = true;
+				GagSenderForRecipient(i_param1, i_target);
 			}
 		}
 	}
@@ -254,18 +256,51 @@ public MenuHandler_UnGagMenu(Handle h_menu, MenuAction i_action, int i_param1, i
 			else
 			{
 				PrintToChat(i_param1, "[SM] %t", "sug_menu_ungagged", i_target);
-				gb_gagged[i_param1][i_target] = false;
+				UnGagSenderForRecipient(i_param1, i_target);
 			}
 		}
 	}
 }
 
-
-public Action Callback_OnSayText2(UserMsg msg_id, BfRead msg, const int[] players, int playersNum, bool reliable, bool init)
+stock bool GagSenderForRecipient(int i_recipient, int i_sender)
 {
-	if (gb_gagged[GET_RECIPIENT(players)][GET_SENDER(msg)])
+	bool b_gaged = gb_gagged[i_recipient][i_sender];
+	gb_gagged[i_recipient][i_sender] = true;
+	return b_gaged;
+}
+
+stock bool UnGagSenderForRecipient(int i_recipient, int i_sender)
+{
+	bool b_gaged = gb_gagged[i_recipient][i_sender];
+	gb_gagged[i_recipient][i_sender] = false;
+	return b_gaged;
+}
+
+stock bool ShouldRecipientReadFromSender(int i_recipient, int i_sender)
+{
+	return !gb_gagged[i_recipient][i_sender];
+}
+
+public Action OnChatMessage(int &i_author, Handle h_recipients, char[] s_name, char[] s_message)
+{
+	int i_recipients = GetArraySize(h_recipients);
+	if (i_recipients == 1)
 	{
-		return Plugin_Handled;
+		if (ShouldRecipientReadFromSender(GetArrayCell(h_recipients, 0), i_author))
+		{
+			return Plugin_Continue;
+		}
+		else
+		{
+			return Plugin_Stop;
+		}
+	}
+	for (int i = 0; i < i_recipients; i++)
+	{
+		if (!ShouldRecipientReadFromSender(GetArrayCell(h_recipients, i), i_author))
+		{	
+			(view_as<ArrayList>(h_recipients)).Erase(i);
+		}
 	}
 	return Plugin_Continue;
 }
