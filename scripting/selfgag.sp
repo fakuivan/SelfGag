@@ -63,11 +63,11 @@ public void OnPluginStart()
 	LoadTranslations("sg.phrases");
 }
 
-bool gb_gagged[MAXPLAYERS][MAXPLAYERS];
+bool gb_gagged[MAXPLAYERS+1][MAXPLAYERS+1];
 
 public void OnClientPutInServer(int i_client)
 {
-	for (int i = 0; i < MaxClients; i++)
+	for (int i = 1; i <= MaxClients; i++)
 	{
 		gb_gagged[i_client][i] = false;
 		gb_gagged[i][i_client] = false;
@@ -77,7 +77,7 @@ public void OnClientPutInServer(int i_client)
 public Action Callback_GetGagged(int i_client, int i_args)
 {
 	ReplyToCommand(i_client, "[SM] %t:", "sg_showing_gagged");
-	for (int i = 0; i < MaxClients; i++)
+	for (int i = 1; i <= MaxClients; i++)
 	{
 		if (gb_gagged[i_client][i])
 		{
@@ -191,7 +191,7 @@ void DisplayGagMenu(int i_client)
 	DisplayMenu(h_menu, i_client, MENU_TIME_FOREVER);
 }
 
-public MenuHandler_GagMenu(Handle h_menu, MenuAction i_action, int i_param1, int i_param2)
+public int MenuHandler_GagMenu(Handle h_menu, MenuAction i_action, int i_param1, int i_param2)
 {
 	switch (i_action)
 	{
@@ -231,7 +231,7 @@ void DisplayUnGagMenu(int i_client)
 	DisplayMenu(h_menu, i_client, MENU_TIME_FOREVER);
 }
 
-public MenuHandler_UnGagMenu(Handle h_menu, MenuAction i_action, int i_param1, int i_param2)
+public int MenuHandler_UnGagMenu(Handle h_menu, MenuAction i_action, int i_param1, int i_param2)
 {
 	switch (i_action)
 	{
