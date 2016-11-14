@@ -8,10 +8,10 @@ A plugin that that allows a player to gag other players, but just for himself.
 
 ## Installation
 
+1. Make shure you have [Simple Chat Processor](https://forums.alliedmods.net/showthread.php?p=1820365) installed on your server
 1. Dowload the lastest [release](https://github.com/fakuivan/SelfGag/releases)
 2. Drag the files to your sourcemod folder
 3. Load the plugin from the console or restart the server
 
 ## Notes
-* CS:GO Not supported yet
 * Only tested on TF2
