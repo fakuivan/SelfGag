@@ -81,7 +81,7 @@ public Action Callback_GetGagged(int i_client, int i_args)
 	ReplyToCommand(i_client, "[SM] %t:", "sg_showing_gagged");
 	for (int i = 0; i < MaxClients; i++)
 	{
-		if (ShouldRecipientReadFromSender(i_client, i))
+		if (!ShouldRecipientReadFromSender(i_client, i))
 		{
 			if (IsClientInGame(i))
 			{
