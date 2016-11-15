@@ -63,6 +63,7 @@ public void OnPluginStart()
 }
 
 bool gb_gagged[MAXPLAYERS+1][MAXPLAYERS+1];
+int gi_filters = COMMAND_FILTER_NO_BOTS | COMMAND_FILTER_NO_IMMUNITY;
 
 public void OnClientPutInServer(int i_client)
 {
@@ -109,7 +110,7 @@ public Action Callback_Gag(int i_client, int i_args)
 			i_client,
 			i_target_list,
 			MAXPLAYERS,
-			COMMAND_FILTER_NO_BOTS,
+			gi_filters,
 			s_target_name,
 			sizeof(s_target_name),
 			b_tn_is_ml)) <= 0)
@@ -153,7 +154,7 @@ public Action Callback_UnGag(int i_client, int i_args)
 			i_client,
 			i_target_list,
 			MAXPLAYERS,
-			COMMAND_FILTER_NO_BOTS,
+			gi_filters,
 			s_target_name,
 			sizeof(s_target_name),
 			b_tn_is_ml)) <= 0)
@@ -185,7 +186,7 @@ void DisplayGagMenu(int i_client)
 	SetMenuTitle(h_menu, "%T:", "sg_menu_title", i_client);
 	SetMenuExitBackButton(h_menu, true);
 	
-	AddTargetsToMenu2(h_menu, 0, COMMAND_FILTER_NO_BOTS);
+	AddTargetsToMenu2(h_menu, 0, gi_filters);
 	
 	DisplayMenu(h_menu, i_client, MENU_TIME_FOREVER);
 }
@@ -225,7 +226,7 @@ void DisplayUnGagMenu(int i_client)
 	SetMenuTitle(h_menu, "%T", "sug_menu_title", i_client);
 	SetMenuExitBackButton(h_menu, true);
 	
-	AddTargetsToMenu2(h_menu, 0, COMMAND_FILTER_NO_BOTS);
+	AddTargetsToMenu2(h_menu, 0, gi_filters);
 	
 	DisplayMenu(h_menu, i_client, MENU_TIME_FOREVER);
 }
