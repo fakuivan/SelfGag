@@ -39,9 +39,6 @@
 
 #define PLUGIN_VERSION	"1.1"
 
-#define GET_SENDER(%1)	BfReadByte(%1)
-#define GET_RECIPIENT(%1)	%1[0]
-
 public Plugin myinfo = 
 {
 	name = "SelfGag",
