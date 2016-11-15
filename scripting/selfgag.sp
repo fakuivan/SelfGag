@@ -293,11 +293,11 @@ public Action OnChatMessage(int &i_author, Handle h_recipients, char[] s_name, c
 			return Plugin_Stop;
 		}
 	}
-	for (int i = 0; i < i_recipients; i++)
+	for (int i = i_recipients - 1; i >= 0; i--)
 	{
 		if (!ShouldRecipientReadFromSender(GetArrayCell(h_recipients, i), i_author))
 		{	
-			(view_as<ArrayList>(h_recipients)).Erase(i);
+			RemoveFromArray(h_recipients, i);
 		}
 	}
 	return Plugin_Continue;
