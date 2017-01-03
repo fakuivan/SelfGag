@@ -21,8 +21,7 @@ matrix:
 install:
     - wget --input-file=http://sourcemod.net/smdrop/$SMVERSION/sourcemod-latest-linux
     - tar -xzf $(cat sourcemod-latest-linux)
-    # A nasty url :u
-    - wget https://bitbucket.org/minimoney1/simple-chat-processor/raw/949b2e410fa5571fff216767a7a8093cedebafcb/scripting/include/scp.inc -O ./addons/sourcemod/scripting/include/scp.inc
+    - wget https://bitbucket.org/minimoney1/simple-chat-processor/raw/master/scripting/include/scp.inc -O ./addons/sourcemod/scripting/include/scp.inc
 before_script:
     - cp -r ./scripting ./addons/sourcemod
     - chmod +x ./addons/sourcemod/scripting/spcomp
