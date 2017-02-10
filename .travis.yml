@@ -22,21 +22,24 @@ install:
     - wget --input-file=http://sourcemod.net/smdrop/$SMVERSION/sourcemod-latest-linux
     - tar -xzf $(cat sourcemod-latest-linux)
     - wget https://bitbucket.org/minimoney1/simple-chat-processor/raw/master/scripting/include/scp.inc -O ./addons/sourcemod/scripting/include/scp.inc
+    - COMMIT_NUMBER=$(git rev-list --count HEAD)
 before_script:
     - cp -r ./scripting ./addons/sourcemod
     - chmod +x ./addons/sourcemod/scripting/spcomp
     - mkdir ./plugins
+    - FILE=selfgag-n$COMMIT_NUMBER.zip
 script: ./addons/sourcemod/scripting/spcomp ./addons/sourcemod/scripting/selfgag.sp -o./plugins/selfgag.smx
 
-before_deploy: zip -r selfgag.zip ./translations/ ./plugins/ ./scripting/
+before_deploy: zip -r $FILE ./translations/ ./plugins/ ./scripting/
 
 deploy:
     provider: releases
     api_key:
         secure: TsQ8M/sJ1Z7+e4EC4OC9joOFWHdtSUK5ruj+9GCGBbqTrxeXKr7c4H+fapubL/JlpyuRBv+9J5Alde61ng6HZtK6nm/tX28H603z+k4bFnCw6/1Nnq7z+htjnKwd63yAkIRR7XIEfDfw4QVFkUQbDbgHr0Eknh6xJMN8E+lawgoCx9nhXid7frHC6u66JD4qRzkTVo9UoYQkTEOwvPLgTk2qJTKrTOWEdj5g+7H3ugdxB3cQC5VngEsXQzVasnpCLCNktdUQXAv4Z1dFEJ8pZ5r8gEa/93R0zBJCtXOUY5U5jecof8/sIqY3sfWFkZH92rMDQjWYsVfE9vX7DDydcnBxykHrSJf9LInB66/wJFh28a51tnXxeq+QWsCkJ3kcMMmQo+W426O4eZpH1D4BvphsA6aYfy6zcPlHfstXvzXFWgNrb16wG5rB5jv1ubypclhTrwHmM90eL8mchY4+dmFqyxgRxzE6PDkIdult1Lcf28JR8F1E2BAixjZXtlTI7Rnl6KiLbRsnTNw64JOpvUUdb4BpDSZU4UgSgrPl7Km2HE7vq5JPHiw6qS2Bmr1KQ2lUaqyFPC3J9x8MSBn+N9fDhwVLg/j/+0nwzabFBXOi29T1KDFsp4K1Aa+tdxOY7eRFExva7tj6PlfxIuNpQUxVdwGl6Ltg5x6gIoLbtKA=
-    file: "selfgag.zip"
+    file: $FILE
     skip_cleanup: true
     on:
+        condition: $SMVERSION = 1.8
         repo: fakuivan/SelfGag
         tags: true
 
