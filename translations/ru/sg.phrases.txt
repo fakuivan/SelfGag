@@ -1,0 +1,43 @@
+"Phrases"
+{
+	"sg_showing_gagged"
+	{
+		"ru"		"Показаны заглушенные игроки"
+	}
+	"sg_ml_you_gagged"
+	{
+		"ru"		"Вы заглушили %t"
+	}
+	"sg_you_gagged"
+	{
+		"ru"		"Вы заглушили %s"
+	}
+	"sug_ml_you_ungagged"
+	{
+		"ru"		"Вы убрали заглушку с %t"
+	}
+	"sug_you_ungagged"
+	{
+		"ru"		"Вы убрали заглушку с %s"
+	}
+	"sg_menu_title"
+	{
+		"ru"		"Выберите игрока, которого хотите заглушить"
+	}
+	"sg_menu_cant_target"
+	{
+		"ru"		"Невозможно выбрать игрока"
+	}
+	"sg_menu_you_gagged"
+	{
+		"ru"		"Вы заглушили %N"
+	}
+	"sug_menu_title"
+	{
+		"ru"		"Выберите игрока, с которого хотите убрать заглушку"
+	}
+	"sug_menu_ungagged"
+	{
+		"ru"		"Вы убрали заглушку с %N"
+	}
+}
